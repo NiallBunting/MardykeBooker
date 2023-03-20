@@ -135,6 +135,7 @@ def book_activity(token, activity_item):
   response = requests.post('https://api.glofox.com/2.0/bookings', headers=headers, json=json_data)
 
   res = response.json()
+  # Set the has_booked flag
   if res['success'] == True:
     activity_item['has_booked'] = True
 
@@ -146,6 +147,7 @@ activities = get_activities(token)
 
 for _ in range(10):
   for activity in activities:
+    # We update the flag if we successfully book
     if activity['has_booked'] == False:
       book_activity(token, activity)
   time.sleep(4)
